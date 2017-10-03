@@ -1,0 +1,8 @@
+package fix
+
+object DottyMigration {
+  val a = ???
+  val b = ???
+  val c =
+    ???
+}

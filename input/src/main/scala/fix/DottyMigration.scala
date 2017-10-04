@@ -10,4 +10,7 @@ object DottyMigration {
     <a>
       <b/>
     </a>
+
+  def foo = 3
+  val bar = foo _
 }

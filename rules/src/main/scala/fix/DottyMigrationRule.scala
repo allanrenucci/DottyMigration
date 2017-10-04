@@ -7,7 +7,7 @@ import scala.meta.transversers.Traverser
 case object DottyMigrationRule extends Rule("DottyMigration") {
 
   override def fix(ctx: RuleCtx): Patch =
-    fixMacro(ctx) + fixExistentialTypes(ctx)
+    fixEtaExpansion(ctx) + fixMacro(ctx) + fixExistentialTypes(ctx)
 
   /** Replace xml literals by ??? */
   private def fixXml(ctx: RuleCtx): Patch = {
@@ -51,6 +51,13 @@ case object DottyMigrationRule extends Rule("DottyMigration") {
       case e: Type.Existential =>
         val message = LintCategory.warning("Rewrite me!")
         ctx.lint(message.at(e.pos))
+    }.asPatch
+  }
+
+  private def fixEtaExpansion(ctx: RuleCtx): Patch = {
+    ctx.tree.collect {
+      case e @ Term.Eta(expr) =>
+        ctx.replaceTree(e, s"() => ${expr.tokens}")
     }.asPatch
   }
 }

@@ -7,7 +7,7 @@ import scala.meta.transversers.Traverser
 case object DottyMigrationRule extends Rule("DottyMigration") {
 
   override def fix(ctx: RuleCtx): Patch =
-    fixXml(ctx) + fixMacro(ctx) + fixExistentialTypes(ctx)
+    fixMacro(ctx) + fixExistentialTypes(ctx)
 
   /** Replace xml literals by ??? */
   private def fixXml(ctx: RuleCtx): Patch = {

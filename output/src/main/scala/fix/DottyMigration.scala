@@ -8,4 +8,6 @@ object DottyMigration {
 
   def foo = 3
   val bar = () => foo
+  val `enum` = 1
+  `enum`.toString
 }
